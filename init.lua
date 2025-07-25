@@ -2,6 +2,7 @@ require("matthew")
 require("config.lazy")
 
 -- require("rose-pine").setup({})
+vim.opt.modifiable = true
 
 vim.opt.number = true
 vim.opt.relativenumber = true
