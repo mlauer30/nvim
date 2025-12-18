@@ -1,53 +1,41 @@
--- This function sets a colorscheme (theme) in Neovim, and then removes the 
--- background color, making the background transparent (great for terminals with 
--- custom themes or transparency).
-
-function ColorMyPencils(color)
-    color = color  or "rose-pine"
-    vim.cmd.colorscheme(color)
-
-    vim.api.nvim_set_hl(0, "Normal", {bg = "none"})
-    vim.api.nvim_set_hl(0, "NormalFloat", {bg = "none"})
-end
-
 return {
-    -- tokyonight plugin
-    {
-        "folke/tokyonight.nvim",
-        config = function()
-            require("tokyonight").setup({
-                -- your configuration comes here
-                -- or leave it empty to use the default settings
-                style = "storm", -- The theme comes in three styles, `storm`, `moon`, a darker variant `night` and `day`
-                transparent = true, -- Enable this to disable setting the background color
-                terminal_colors = true, -- Configure the colors used when opening a `:terminal` in Neovim
-                styles = {
-                    -- Style to be applied to different syntax groups
-                    -- Value is any valid attr-list value for `:help nvim_set_hl`
-                    comments = { italic = false },
-                    keywords = { italic = false },
-                    -- Background styles. Can be "dark", "transparent" or "normal"
-                    sidebars = "dark", -- style for sidebars, see below
-                    floats = "dark", -- style for floating windows
-                },
-            })
-        end
-    },
     -- rose-pine plugin
     {
         "rose-pine/neovim",
         name = "rose-pine",
         config = function()
             require('rose-pine').setup({
-                disable_background = true, 
+                variant = "main",
+                dark_variant = "main",
+                disable_background = false,
+                --[[
+                palette = {
+                    -- Override the builtin palette per variant
+                    main = {
+                        base = '#2f2f2f',
+                    },
+                },
+                --]]
+                highlight_groups = {
+                    -- Change background to dark grey
+                    Normal = { bg = '#1a1a1a', fg = '#ffffff' },
+                    NormalFloat = { bg = '#1a1a1a', fg = '#ffffff' },
+                    -- Update other UI elements to match
+                    CursorLine = { bg = '#252525' },
+                    StatusLine = { bg = '#1a1a1a' },
+                    LineNr = { bg = '#1a1a1a', fg = '#5a5a5a' },
+                    SignColumn = { bg = '#1a1a1a' },
+                    -- Keep rose-pine accent colors but with grey base
+                    -- (you can still use 'rose', 'pine', 'foam' etc. for syntax)
+                    Delimiter = { fg = 'subtle' },
+                },
                 styles = {
                     italic = false,
-
+                    transparency = false,
                 },
 
             })
             vim.cmd("colorscheme rose-pine")
-            ColorMyPencils()
         end
     },
 }

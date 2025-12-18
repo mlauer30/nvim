@@ -38,4 +38,3 @@ vim.opt.undofile = true
 vim.opt.signcolumn = "yes"
 
 vim.g.mapleader = " "
-
